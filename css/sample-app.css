@@ -1,0 +1,9 @@
+.wordcloud {
+	border: 1px solid white;
+	height: 7in;
+	margin: 0.5in auto;
+	padding: 0;
+	page-break-after: always;
+	page-break-inside: avoid;
+	width: 7in;
+}
