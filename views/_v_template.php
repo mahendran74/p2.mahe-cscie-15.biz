@@ -64,7 +64,7 @@
                <footer>
                   <!-- wrapper -->
                   <div class="wrapper cf">
-                     <div id="footer-bottom">Vintage Template designed by <a href="http://www.luiszuno.com" >luiszuno.com</a></div>
+                     <div id="footer-bottom">CSCIE-15 Project 2 - <a href="mailto:mahendran.nair@gmail.com">Mahendran Sreedevi</a><br/>Vintage Template designed by <a href="http://www.luiszuno.com" >luiszuno.com</a></div>
                   </div>
                   <!-- ENDS wrapper -->
                </footer>

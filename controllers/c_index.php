@@ -1,36 +1,32 @@
 <?php
+include ($_SERVER ['DOCUMENT_ROOT'] . '/utils/util.php'); // Include utility class
+/**
+ * @author Mahendran Sreedevi 
+ * This is the controller for the home page.
+ */
 class index_controller extends base_controller {
 	
-	/*
-	 * ------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------------------------
+
+	/**
+	 * Constructor
 	 */
 	public function __construct() {
 		parent::__construct ();
 	}
 	
-	/*
-	 * ------------------------------------------------------------------------------------------------- Accessed via http://localhost/index/index/ -------------------------------------------------------------------------------------------------
+
+	/**
+	 * This function gets the list of all user's posts and all the posts from people she follows
 	 */
 	public function index() {
-		
-		// Any method that loads a view will commonly start with this
-		// First, set the content of the template with a view file
+		// Set the view
 		$this->template->content = View::instance ( 'v_index_index' );
-		
-		// Now set the <title> tag
+		// Set the title
 		$this->template->title = APP_NAME;
-		
-		// CSS/JS includes
-		/*
-		 * $client_files_head = Array(""); 
-		 * $this->template->client_files_head = Utils::load_client_files($client_files); 
-		 * $client_files_body = Array(""); 
-		 * $this->template->client_files_body = Utils::load_client_files($client_files_body);
-		 */
-		
-		// Build the query
+	
+		// Check to see if the user is logged in
 		if ($this->user) {
-			
+			// This query gets the list of all user's posts and all the posts from people she follows
 			$q = "SELECT * 
                     FROM (SELECT posts.post_id, 
                                  posts.content, 
@@ -64,6 +60,7 @@ class index_controller extends base_controller {
 			// Run the query
 			$dbposts = DB::instance ( DB_NAME )->select_rows ( $q );
 			foreach ( $dbposts as $dbpost ) {
+				// Copy the result array into another array for editing.
 				$post ['post_id'] = $dbpost ['post_id'];
 				$post ['modified'] = $dbpost ['modified'];
 				$post ['post_user_id'] = $dbpost ['post_user_id'];
@@ -71,25 +68,25 @@ class index_controller extends base_controller {
 				$post ['first_name'] = $dbpost ['first_name'];
 				$post ['last_name'] = $dbpost ['last_name'];
 				$post ['avatar'] = $dbpost ['avatar'];
-				
+				// For each post get the list of keywords. 
 				$q = "SELECT * FROM posts_keywords WHERE post_id = " . $dbpost ["post_id"];
 				$keywords = DB::instance ( DB_NAME )->select_rows ( $q );
 				$mod_content = $dbpost ["content"];
 				foreach ( $keywords as $keyword ) {
+					// Go through the post and add links to keywords
 					$mod_content = str_replace ( "#" . $keyword ["keyword"], "<a href='/posts/keyword/" . $keyword ["keyword"] . "'>#" . $keyword ["keyword"] . "</a>", $mod_content );
 				}
-				// array_push($post, $mod_content);
-				$post ["content"] = $mod_content;
+				// Add content back to array
+				$post ["content"] = strip_new_line($mod_content);
 				$posts [] = $post;
 			}
-			$client_files_body = Array (
-					"/js/confirm.js"
-			);
+			// Include the delete confirmation js
+			$client_files_body = Array ("/js/confirm.js");
 			$this->template->client_files_body = Utils::load_client_files ( $client_files_body );
 			// Pass data to the View
 			$this->template->content->posts = $posts;
 		}
-		
+		// Render the template
 		echo $this->template;
-	} // End of method
-} # End of class
+	} 
+} 
