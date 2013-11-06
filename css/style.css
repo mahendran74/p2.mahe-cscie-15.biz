@@ -835,7 +835,7 @@ footer #footer-bottom {
 	display: none;
 }
 /* SUCCESS MESG ------------------------------------------------------------*/
-#message-green{
-    height:30px;
-    background:#00FF00;
+.avatar-image img {
+    width: 100px;
+    height: 100px;
 }

@@ -38,9 +38,11 @@
             <?php if(isset($avatar_message)): ?>
             <p class="infobox-success"><?=$avatar_message?></p>
             <?php endif; ?>
-            <br>
-            <img src="<?=$profile['avatar']?>" alt="avatar"/>
-            <br>
+            <br/>
+            <div class="avatar-image">
+               <img src="<?=$profile['avatar']?>" alt="Avatar" />
+            </div>
+            <br/>
             <form method='POST' enctype="multipart/form-data" action='/users/p_upload' id="avatarform">
                <fieldset>
                   <input type='file' name='avatar'><br/>
