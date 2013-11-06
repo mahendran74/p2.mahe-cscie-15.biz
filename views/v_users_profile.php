@@ -7,10 +7,10 @@
          <div class="accordion-trigger">Modify profile</div>
          <div class="accordion-container">
             <?php if(isset($profile_error_string)): ?>
-               <p class="infobox-error"><?=$profile_error_string?></p>
+            <p class="infobox-error"><?=$profile_error_string?></p>
             <?php endif; ?>
             <?php if(isset($profile_message)): ?>
-               <p class="infobox-success"><?=$profile_message?></p>
+            <p class="infobox-success"><?=$profile_message?></p>
             <?php endif; ?>
             <form method='POST' action='/users/p_update' id="contactForm">
                <fieldset>
@@ -33,10 +33,10 @@
          <div class="accordion-trigger">Change avatar</div>
          <div class="accordion-container">
             <?php if(isset($avatar_error_message)): ?>
-               <p class="infobox-error"><?=$avatar_error_message?></p>
+            <p class="infobox-error"><?=$avatar_error_message?></p>
             <?php endif; ?>
             <?php if(isset($avatar_message)): ?>
-               <p class="infobox-success"><?=$avatar_message?></p>
+            <p class="infobox-success"><?=$avatar_message?></p>
             <?php endif; ?>
             <br>
             <img src="<?=$profile['avatar']?>" alt="avatar"/>
@@ -50,11 +50,11 @@
          </div>
          <div class="accordion-trigger">Change password</div>
          <div class="accordion-container">
-             <?php if(isset($password_error_message)): ?>
-               <p class="infobox-error"><?=$password_error_message?></p>
+            <?php if(isset($password_error_message)): ?>
+            <p class="infobox-error"><?=$password_error_message?></p>
             <?php endif; ?>
             <?php if(isset($password_message)): ?>
-               <p class="infobox-success"><?=$password_message?></p>
+            <p class="infobox-success"><?=$password_message?></p>
             <?php endif; ?>
             <form method='POST' action='/users/p_updatepassword' id="contactForm">
                <fieldset>
