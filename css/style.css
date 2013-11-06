@@ -830,6 +830,12 @@ footer #footer-bottom {
 	page-break-inside: avoid;
 	width: 7in;
 }
+
 .dialog-confirm {
-	display:none;
+	display: none;
+}
+/* SUCCESS MESG ------------------------------------------------------------*/
+#message-green{
+    height:30px;
+    background:#00FF00;
 }
