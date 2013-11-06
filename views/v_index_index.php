@@ -1,4 +1,3 @@
-
 <div class="wrapper cf">
    <!-- page-content -->
    <div class="page-content">
@@ -17,9 +16,9 @@
       </div>
       <br/>
       <br/>
-     <div id="dialog-confirm" title="Delete record" style="display: none">
-        <p>Are you sure?</p>
-    </div>
+      <div id="dialog-confirm" title="Delete record" style="display: none">
+         <p>Are you sure?</p>
+      </div>
       <div id="posts-list" class="cf">
          <?php foreach($posts as $post): ?>
          <!-- posts list -->
@@ -38,7 +37,6 @@
                <time datetime="<?=Time::display($post['modified'],'Y-m-d G:i')?>">
                <?=Time::display($post['modified'])?>
                </time></span>
-
                <div class="edit"><a href="/posts/edit/<?=$post['post_id']?>" title="Edit post"><img src="/img/edit.png" alt="Edit"/></a></div>
                <div class="del"><a class="confirm" href="/posts/delete/<?=$post['post_id']?>"  title="Delete post"><img src="/img/delete.png" alt="Delete"/></a></div>
             </div>
@@ -48,38 +46,36 @@
       </div>
       <?php else:?>
       <!-- entry-content -->	
-	        	<div class="entry-content cf">
-
-      <div class="headline">
-         Welcome to Bloggette
-      </div>
-
-      <!-- 2 cols -->
-      <div class="one-half">
-         <h4 class="heading">Its short and sweet</h4>
-         Features include
-         <ul>
-         <li>Add and delete short blog entries (255 chars)</li>
-         <li>Ability to modify your profile information and password</li>
-         <li>Upload an avatar</li>
-         <li>Use hashtags to denote keywrods(+1)</li>
-         <li>Find and follow users based on keywords(+1)</li>
-         <li>See trending keywords in a word cloud.</li>
-         </ul>
-          </div>
-      <div class="one-half last">
-         <h4 class="heading">Login here</h4>
-         <?php if(isset($login_error_message)): ?>
-               <p class="infobox-error"><?=$login_error_message?></p>
+      <div class="entry-content cf">
+         <div class="headline">
+            Welcome to Bloggette
+         </div>
+         <!-- 2 cols -->
+         <div class="one-half">
+            <h4 class="heading">Its short and sweet</h4>
+            Features include
+            <ul>
+               <li>Add, edit and delete short blog entries (255 chars)</li>
+               <li>Ability to modify your profile information and password(+1)</li>
+               <li>Upload an avatar(+1)</li>
+               <li>Use hashtags to denote keywrods(+1)</li>
+               <li>Find and follow users based on keywords(+1)</li>
+               <li>See trending keywords in a word cloud.</li>
+            </ul>
+         </div>
+         <div class="one-half last">
+            <h4 class="heading">Login here</h4>
+            <?php if(isset($login_error_message)): ?>
+            <p class="infobox-error"><?=$login_error_message?></p>
             <?php endif; ?>
-         <form method='POST' action='/users/p_login' id="contactForm">
-Email<br/>
-<input type='text' name='email'><br/>
-Password<br/>
-<input type='password' name='password'><br/>
-<input type='submit' value='Log in'>
-</form>
-       </div>
+            <form method='POST' action='/users/p_login' id="contactForm">
+               Email<br/>
+               <input type='text' name='email'><br/>
+               Password<br/>
+               <input type='password' name='password'><br/>
+               <input type='submit' value='Log in'>
+            </form>
+         </div>
       </div>
       <?php endif; ?>
       <div class="c-1"></div>
