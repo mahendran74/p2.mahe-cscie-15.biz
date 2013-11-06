@@ -17,9 +17,6 @@
       </div>
       <br/>
       <br/>
-      <div id="dialog-confirm" title="Delete record" style="display: none">
-         <p>Are you sure?</p>
-      </div>
       <div id="posts-list" class="cf">
          <?php foreach($posts as $post): ?>
          <!-- posts list -->
@@ -35,7 +32,7 @@
             </div>
             <div class="meta">
                <span class="tags">    
-               <time datetime="<?=Time::display($post['modified'],'Y-m-d G:i')?>">
+               <time datetime="<?=Time::display($post['modified'],'Y-m-d H:i')?>">
                <?=Time::display($post['modified'])?>
                </time></span>
                <div class="edit"><a href="/posts/edit/<?=$post['post_id']?>" title="Edit post"><img src="/img/edit.png" alt="Edit"/></a></div>
