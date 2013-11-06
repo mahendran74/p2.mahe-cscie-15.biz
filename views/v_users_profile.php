@@ -60,15 +60,15 @@
                <fieldset>
                   <p>
                      <label for="old_password" >Old password</label>
-                     <input type='password' name='old_password' id='old_password'  placeholder="Enter your old password"  class="form-poshytip">
+                     <input type='password' name='old_password' id='old_password'  placeholder="Enter your old password" title="Enter your old password" class="form-poshytip">
                   </p>
                   <p>
                      <label for="password" >New password</label>
-                     <input type='password' name='password' id='password'  placeholder="Enter your new password"  class="form-poshytip">
+                     <input type='password' name='password' id='password'  placeholder="Enter your new password"  title="Enter your new password" class="form-poshytip">
                   </p>
                   <p>
                      <label for="new_password" >Confirm password</label>
-                     <input type='password' name='new_password' id='new_password'  placeholder="Enter your new password again"  class="form-poshytip">
+                     <input type='password' name='new_password' id='new_password'  placeholder="Enter your new password again" title="Enter your new password again" class="form-poshytip">
                   </p>
                   <input type='submit' value='Update'>
                </fieldset>
