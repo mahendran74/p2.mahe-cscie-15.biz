@@ -58,8 +58,9 @@ class posts_controller extends base_controller {
 			// Get each keyword in the post and add them to the keyword list
 			get_keywords ( $_POST ['content'], $post_id );
 		}
-		// Send back to home page
-		Router::redirect ( "/" );
+		// Send back to home page with the message
+		$index = new index_controller();
+		$index->index("Your post was added successfully");
 	}
 	/**
 	 * Function to process an update post request
@@ -81,7 +82,8 @@ class posts_controller extends base_controller {
 			get_keywords ( $_POST ['content'], $_POST ['post_id'] );
 		}
 		// Send back to home page.
-		Router::redirect ( "/" );
+		$index = new index_controller();
+		$index->index("Your post was updated successfully");
 	}
 	/**
 	 * Function to process an delete post request
@@ -94,7 +96,8 @@ class posts_controller extends base_controller {
 		}
 		DB::instance ( DB_NAME )->delete ( 'posts', "WHERE post_id = " . $post_id ); // Delete post
 		// Send back to home page..
-		Router::redirect ( "/" );
+		$index = new index_controller();
+		$index->index("Your post was deleted successfully");
 	}
 	/**
 	 * Function to get the list of all posts with a given keyword
@@ -133,7 +136,7 @@ class posts_controller extends base_controller {
 				$mod_content = str_replace ( "#" . $keyword ["keyword"], "<a href='/posts/keyword/" . $keyword ["keyword"] . "'>#" . $keyword ["keyword"] . "</a>", $mod_content );
 			}
 			// Set modified content
-			$post ["content"] = strip_new_line($mod_content);
+			$post ["content"] = nl2br($mod_content);
 			$posts [] = $post;
 		}
 		// Query to get all the users that this user is following
@@ -156,7 +159,7 @@ class posts_controller extends base_controller {
 		// Add the awesomeCloud and sample-app js
 		$client_files_body = Array (
 				"/js/jquery.awesomeCloud-0.2.min.js",
-				"/js/sample-app.js" 
+				"/js/cloud.js" 
 		);
 		$this->template->client_files_body = Utils::load_client_files ( $client_files_body );
 		// Query to get the list of all keywords and the total number of times it appears in all the posts

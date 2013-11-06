@@ -1,5 +1,4 @@
 <?php
-include ($_SERVER ['DOCUMENT_ROOT'] . '/utils/util.php'); // Include utility class
 /**
  * @author Mahendran Sreedevi 
  * This is the controller for the home page.
@@ -18,7 +17,7 @@ class index_controller extends base_controller {
 	/**
 	 * This function gets the list of all user's posts and all the posts from people she follows
 	 */
-	public function index() {
+	public function index($mesg = NULL) {
 		// Set the view
 		$this->template->content = View::instance ( 'v_index_index' );
 		// Set the title
@@ -77,11 +76,16 @@ class index_controller extends base_controller {
 					$mod_content = str_replace ( "#" . $keyword ["keyword"], "<a href='/posts/keyword/" . $keyword ["keyword"] . "'>#" . $keyword ["keyword"] . "</a>", $mod_content );
 				}
 				// Add content back to array
-				$post ["content"] = strip_new_line($mod_content);
+				$post ["content"] = nl2br($mod_content);
 				$posts [] = $post;
 			}
 			// Include the delete confirmation js
 			$client_files_body = Array ("/js/confirm.js");
+
+			if (isset($mesg)) {
+				$this->template->content->mesg = $mesg;
+				array_push($client_files_body, "/js/fadeout.js");
+			}
 			$this->template->client_files_body = Utils::load_client_files ( $client_files_body );
 			// Pass data to the View
 			$this->template->content->posts = $posts;

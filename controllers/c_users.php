@@ -323,7 +323,7 @@ class users_controller extends base_controller {
 		}
 		// Set the script to open the first blind
 		$client_files_body = Array (
-				"/js/option1.js" 
+				"/js/option1.js", "/js/fadeout.js" 
 		);
 		$this->template->content = View::instance ( 'v_users_profile' ); // Set view
 		$this->template->title = "Profile"; // Set title
