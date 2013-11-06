@@ -323,7 +323,7 @@ class users_controller extends base_controller {
 		}
 		// Set the script to open the first blind
 		$client_files_body = Array (
-				"/js/option1.js", "/js/fadeout.js" 
+				"/js/option1.js" // Script to open second blind
 		);
 		$this->template->content = View::instance ( 'v_users_profile' ); // Set view
 		$this->template->title = "Profile"; // Set title
@@ -359,6 +359,8 @@ class users_controller extends base_controller {
 					"/js/option3.js"  // Script to open second blind
 			);
 		}
+		// Add script to fade nessage
+		array_push(	$client_files_body, "/js/fadeout.js" );
 		// Load the script
 		$this->template->client_files_body = Utils::load_client_files ( $client_files_body );
 		echo $this->template; // Render view
