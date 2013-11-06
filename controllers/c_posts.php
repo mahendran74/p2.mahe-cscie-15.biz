@@ -1,5 +1,5 @@
 <?php
-include '\utils\util.php';
+include($_SERVER['DOCUMENT_ROOT'].'/utils/util.php');
 class posts_controller extends base_controller {
 	public function __construct() {
 		parent::__construct ();
@@ -81,7 +81,7 @@ class posts_controller extends base_controller {
 		
 		$q = "SELECT 	posts.post_id, 
   						posts.content, 
-    					posts.created, 
+    					posts.modified, 
 						posts.user_id AS post_user_id, 
 						users.first_name, 
 						users.last_name,
@@ -95,7 +95,7 @@ class posts_controller extends base_controller {
 		
 		foreach ( $dbposts as $dbpost ) {
 			$post ['post_id'] = $dbpost ['post_id'];
-			$post ['created'] = $dbpost ['created'];
+			$post ['modified'] = $dbpost ['modified'];
 			$post ['post_user_id'] = $dbpost ['post_user_id'];
 			$post ['first_name'] = $dbpost ['first_name'];
 			$post ['last_name'] = $dbpost ['last_name'];
@@ -107,11 +107,9 @@ class posts_controller extends base_controller {
 			foreach ( $keywords as $keyword ) {
 				$mod_content = str_replace ( "#" . $keyword ["keyword"], "<a href='/posts/keyword/" . $keyword ["keyword"] . "'>#" . $keyword ["keyword"] . "</a>", $mod_content );
 			}
-			// array_push($post, $mod_content);
+
 			$post ["content"] = $mod_content;
 			$posts [] = $post;
-			// echo $post["content"];
-			// echo "\r\n";
 		}
 		// Build the query to figure out what connections does this user already have?
 		// I.e. who are they following

@@ -1,5 +1,5 @@
 <?php
-include '\utils\util.php';
+include($_SERVER['DOCUMENT_ROOT'].'/utils/util.php');
 class users_controller extends base_controller {
 	public function __construct() {
 		parent::__construct ();
