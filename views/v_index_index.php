@@ -3,7 +3,7 @@
    <div class="page-content">
       <?php if($user):?>
       <h2 class="heading">Hello<?php if($user) echo ', '.$user->first_name; ?></h2>
-       <p class="infobox-warning">Here you will see all your posts and the posts of people whom you are following.</p>
+      <p class="infobox-warning">Here you will see all your posts and the posts of people whom you are following.</p>
       <div class="toggle-trigger"><i></i>Click here to post something...</div>
       <div class="toggle-container">
          <form id="contactForm" action="/posts/p_add" method="POST">
@@ -16,6 +16,9 @@
          </form>
       </div>
       <br/>
+      <?php if(isset($mesg)): ?>
+      <div class="infobox-success"><?=$mesg?></div>
+      <?php endif; ?>
       <br/>
       <div id="posts-list" class="cf">
          <?php foreach($posts as $post): ?>
