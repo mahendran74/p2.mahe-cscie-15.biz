@@ -88,7 +88,4 @@ function get_keywords($content, $post_id) {
 		}
 	}
 }
-function strip_new_line($content) {
-	return nl2br($content);
-}
 ?>
