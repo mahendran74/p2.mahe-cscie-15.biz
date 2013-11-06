@@ -12,7 +12,7 @@
             <?php if(isset($profile_message)): ?>
             <p class="infobox-success"><?=$profile_message?></p>
             <?php endif; ?>
-            <form method='POST' action='/users/p_update' id="contactForm">
+            <form method='POST' action='/users/p_update' id="profileform">
                <fieldset>
                   <p>
                      <label for="first_name" >First Name</label>
@@ -41,7 +41,7 @@
             <br>
             <img src="<?=$profile['avatar']?>" alt="avatar"/>
             <br>
-            <form method='POST' enctype="multipart/form-data" action='/users/p_upload' id="contactForm">
+            <form method='POST' enctype="multipart/form-data" action='/users/p_upload' id="avatarform">
                <fieldset>
                   <input type='file' name='avatar'><br/>
                   <input type='submit'>
@@ -56,7 +56,7 @@
             <?php if(isset($password_message)): ?>
             <p class="infobox-success"><?=$password_message?></p>
             <?php endif; ?>
-            <form method='POST' action='/users/p_updatepassword' id="contactForm">
+            <form method='POST' action='/users/p_updatepassword' id="passwordform">
                <fieldset>
                   <p>
                      <label for="old_password" >Old password</label>
