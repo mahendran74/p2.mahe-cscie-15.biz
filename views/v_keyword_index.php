@@ -27,7 +27,9 @@
             </div>
             <div class="meta">
                <span class="tags">    
-               <?=Time::display($post['created'])?>
+                              <time datetime="<?=Time::display($post['modified'],'Y-m-d H:i')?>">
+               <?=Time::display($post['modified'])?>
+               </time>
                </span>
             </div>
             <i class="tape"></i>
