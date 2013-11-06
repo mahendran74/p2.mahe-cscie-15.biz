@@ -1,4 +1,4 @@
-// Jquery with no conflict
+// Show the second blind
 jQuery(document).ready(function($) {
     //##########################################
 	// Accordion box
