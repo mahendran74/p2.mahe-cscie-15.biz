@@ -199,20 +199,35 @@
 #respond #cancel-comment-reply-link:hover {
   text-decoration: underline;
 }
+#profileform,
+#avatarform,
+#passwordform,
 #commentform,
 #contactForm {
   margin-bottom: 0px;
 }
+#profileform .comment-notes,
+#avatarform .comment-notes,
+#passwordform .comment-notes,
 #commentform .comment-notes,
 #contactForm .comment-notes {
   margin-bottom: 30px;
 }
+#profileform .form-allowed-tags,
+#avatarform .form-allowed-tags,
+#passwordform .form-allowed-tags,
 #commentform .form-allowed-tags,
 #contactForm .form-allowed-tags {
   margin-bottom: 20px;
   font-size: 14px;
   color: #444444;
 }
+#profileform input,
+#profileform textarea,
+#avatarform input,
+#avatarform textarea,
+#passwordform input,
+#passwordform textarea,
 #commentform input,
 #contactForm input,
 #commentform textarea,
@@ -226,6 +241,9 @@
   line-height: 1.5em;
   overflow: auto;
 }
+#profileform input:focus,
+#avatarform input:focus,
+#passwordform input:focus,
 #commentform input:focus,
 #contactForm input:focus,
 #commentform textarea:focus,
@@ -236,10 +254,19 @@
   -o-box-shadow: 0px 0px 3px rgba(251, 228, 113, 0.4);
   box-shadow: 0px 0px 3px rgba(251, 228, 113, 0.4);
 }
+#profileform input[type="text"],
+#avatarform input[type="text"],
+#passwordform input[type="text"],
 #commentform input[type="text"],
 #contactForm input[type="text"],
+#profileform input[type="password"],
+#avatarform input[type="password"],
+#passwordform input[type="password"],
 #commentform input[type="password"],
 #contactForm input[type="password"],
+#profileform input[type="email"],
+#avatarform input[type="email"],
+#passwordform input[type="email"],
 #commentform input[type="email"],
 #contactForm input[type="email"]  {
   overflow: auto;
@@ -248,6 +275,9 @@
   margin-bottom: 10px;
   overflow: hidden;
 }
+#profileform textarea,
+#avatarform textarea,
+#passwordform textarea,
 #commentform textarea,
 #contactForm textarea {
   width: 93.1818%;
@@ -255,8 +285,14 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+#profileform input[type="submit"],
+#avatarform input[type="submit"],
+#passwordform input[type="submit"],
 #commentform input[type="submit"],
 #contactForm input[type="submit"],
+#profileform input[type="button"],
+#avatarform input[type="button"],
+#passwordform input[type="button"],
 #commentform input[type="button"],
 #contactForm input[type="button"] {
   width: auto;
@@ -272,8 +308,14 @@
   transition: all 0.3s ease;
   cursor: pointer;
 }
+#profileform input[type="submit"]:hover,
+#avatarform input[type="submit"]:hover,
+#passwordform input[type="submit"]:hover,
 #commentform input[type="submit"]:hover,
 #contactForm input[type="submit"]:hover,
+#profileform input[type="button"]:hover,
+#avatarform input[type="button"]:hover,
+#passwordform input[type="button"]:hover,
 #commentform input[type="button"]:hover,
 #contactForm input[type="button"]:hover {
   -webkit-transform: translate(0px, -5px);
@@ -281,23 +323,38 @@
   -o-transform: translate(0px, -5px);
   transform: translate(0px, -5px);
 }
+#profileform input#submit,
+#avatarform input#submit,
+#passwordform input#submit,
 #commentform input#submit,
 #contactForm input#submit {
   margin-top: 7px;
 }
+#profileform label,
+#avatarform label,
+#passwordform label,
 #commentform label,
 #contactForm label {
   display: block;
   margin-bottom: -10px;
 }
+#profileform p,
+#avatarform p,
+#passwordform p,
 #commentform p,
 #contactForm p {
   margin-bottom: 10px;
 }
+#profileform #error,
+#avatarform #error,
+#passwordform #error,
 #commentform #error,
 #contactForm #error {
   margin-left: 10px;
 }
+#profileform #sent-form-msg,
+#avatarform #sent-form-msg,
+#passwordform #sent-form-msg,
 #commentform #sent-form-msg,
 #contactForm #sent-form-msg {
   padding: 5px 10px;
