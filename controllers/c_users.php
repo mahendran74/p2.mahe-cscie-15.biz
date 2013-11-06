@@ -16,7 +16,44 @@ class users_controller extends base_controller {
 	public function p_signup() {
 		// Sanitize the user entered data to prevent any funny-business (re: SQL Injection Attacks)
 		$_POST = DB::instance ( DB_NAME )->sanitize ( $_POST );
-		if (email_not_used ( $_POST ['email'], $this->user->user_id )) {
+		$this->template->content = View::instance ( 'v_users_signup' );
+		$this->template->title = "Sign Up";
+		$this->template->content->user = $_POST;
+		if (empty ( $_POST ['first_name'] )) {
+			$this->template->content->profile_error_message = "The first name is a required field.";
+			echo $this->template;
+			return ;
+		}
+		if (empty ( $_POST ['last_name'] )) {
+			$this->template->content->profile_error_message = "The last name is a required field.";
+			echo $this->template;
+			return ;
+		}
+		if (empty ( $_POST ['email'] )) {
+			$this->template->content->profile_error_message = "The email address is a required field.";
+			echo $this->template;
+			return ;
+		}
+		if (!email_not_used ( $_POST ['email'] )) {
+			$this->template->content->profile_error_message = "This email address (" . $_POST ['email'] . ") is already registered. Please try another one.";;
+			echo $this->template;
+			return ;
+		}
+		if (empty ( $_POST ['password'] )) {
+			$this->template->content->profile_error_message = "Please enter the password.";
+			echo $this->template;
+			return ;
+		}
+		if (empty ( $_POST ['confirm_password'] )) {
+			$this->template->content->profile_error_message = "Please confirm the password by entering it again.";
+			echo $this->template;
+			return ;
+		}
+		if ($_POST ['password'] != $_POST ['confirm_password']) {
+			$this->template->content->profile_error_message = "The new password and it's confirmation does not match. Please make sure enter the same password while confirming it.";
+			echo $this->template;
+			return ;
+		}
 			// More data we want stored with the user
 			$_POST ['created'] = Time::now ();
 			$_POST ['modified'] = Time::now ();
@@ -26,16 +63,13 @@ class users_controller extends base_controller {
 			
 			// Create an encrypted token via their email address and a random string
 			$_POST ['token'] = sha1 ( TOKEN_SALT . $_POST ['email'] . Utils::generate_random_string () );
-			
+			$_POST ['avatar'] = "\uploads\avatars\default.gif";
 			unset ( $_POST ['confirm_password'] );
 			// Insert this user into the database
 			$user_id = DB::instance ( DB_NAME )->insert ( "users", $_POST );
 			setcookie ( "token", $_POST ['token'], strtotime ( '+1 year' ), '/' );
 			// Redirect to home page
 			Router::redirect ( "/" );
-		} else {
-			echo "Email exists";
-		}
 	}
 	public function p_update() {
 		if (! isset ( $this->user->user_id )) {
@@ -135,18 +169,28 @@ class users_controller extends base_controller {
 			Router::redirect ( "/" );
 		}
 		if ($user_id_followed != "none") {
+			
+			if (strpos($user_id_followed,'_') !== false) {
+				$pieces = explode("_", $user_id_followed);
+				$followed_id = $pieces[0];
+				$redirect = "/posts/keyword/".$pieces[1];
+			} else {
+				$followed_id = $user_id_followed;
+				$redirect = "/users/follow";
+			}
+			
 			// Prepare the data array to be inserted
 			$data = Array (
 					"created" => Time::now (),
 					"user_id" => $this->user->user_id,
-					"user_id_followed" => $user_id_followed 
+					"user_id_followed" => $followed_id 
 			);
 			
 			// Do the insert
 			DB::instance ( DB_NAME )->insert ( 'users_users', $data );
 			
 			// Send them back
-			Router::redirect ( "/users/follow" );
+			Router::redirect ( $redirect );
 		} else {
 			// Setup view
 			$this->template->content = View::instance ( 'v_users_follow' );
@@ -155,7 +199,7 @@ class users_controller extends base_controller {
 			// Build the query to get all the users
 			$q = "SELECT *
                     FROM users
-    			   WHERE user_id != " . $this->user->user_id;
+    			   WHERE  user_id != " . $this->user->user_id;
 			
 			// Execute the query to get all the users.
 			// Store the result array in the variable $users
@@ -167,14 +211,9 @@ class users_controller extends base_controller {
                     FROM users_users
                    WHERE user_id = " . $this->user->user_id;
 			
-			// Execute this query with the select_array method
-			// select_array will return our results in an array and use the "users_id_followed" field as the index.
-			// This will come in handy when we get to the view
-			// Store our results (an array) in the variable $connections
-			
+	
 			$connections = DB::instance ( DB_NAME )->select_array ( $q, 'user_id_followed' );
-			
-			if (sizeof($connections) > 0) {
+			if ($users) {
 			// Pass data (users and connections) to the view
 			$this->template->content->users = $users;
 			$this->template->content->connections = $connections;
@@ -187,15 +226,26 @@ class users_controller extends base_controller {
 		}
 	}
 	public function unfollow($user_id_followed) {
+		
 		if (! isset ( $this->user->user_id )) {
 			Router::redirect ( "/" );
 		}
+		
+		if (strpos($user_id_followed,'_') !== false) {
+			$pieces = explode("_", $user_id_followed);
+			$followed_id = $pieces[0];
+			$redirect = "/posts/keyword/".$pieces[1];
+		} else {
+			$followed_id = $user_id_followed;
+			$redirect = "/users/follow";
+		}
+			
 		// Delete this connection
-		$where_condition = 'WHERE user_id = ' . $this->user->user_id . ' AND user_id_followed = ' . $user_id_followed;
+		$where_condition = 'WHERE user_id = ' . $this->user->user_id . ' AND user_id_followed = ' . $followed_id;
 		DB::instance ( DB_NAME )->delete ( 'users_users', $where_condition );
 		
 		// Send them back
-		Router::redirect ( "/posts/users" );
+		Router::redirect ( $redirect );
 	}
 	public function profile($messages = array()) {
 		if (! isset ( $this->user->user_id )) {

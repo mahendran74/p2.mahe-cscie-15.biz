@@ -34,7 +34,7 @@ class index_controller extends base_controller {
 			$q = "SELECT * 
                     FROM (SELECT posts.post_id, 
                                  posts.content, 
-                                 posts.created, 
+                                 posts.modified, 
                                  posts.user_id       AS post_user_id, 
                                  users_users.user_id AS follower_id, 
                                  users.first_name, 
@@ -49,7 +49,7 @@ class index_controller extends base_controller {
                            UNION 
                           SELECT posts.post_id, 
                                  posts.content, 
-                                 posts.created, 
+                                 posts.modified, 
                                  posts.user_id                AS post_user_id, 
                                  " . $this->user->user_id . " AS follower_id, 
                                  users.first_name, 
@@ -59,13 +59,13 @@ class index_controller extends base_controller {
                                  INNER JOIN users 
                                          ON posts.user_id = users.user_id 
                            WHERE posts.user_id = " . $this->user->user_id . ") AS all_posts 
-                ORDER BY all_posts.created DESC ";
+                ORDER BY all_posts.modified DESC ";
 			$posts = array ();
 			// Run the query
 			$dbposts = DB::instance ( DB_NAME )->select_rows ( $q );
 			foreach ( $dbposts as $dbpost ) {
 				$post ['post_id'] = $dbpost ['post_id'];
-				$post ['created'] = $dbpost ['created'];
+				$post ['modified'] = $dbpost ['modified'];
 				$post ['post_user_id'] = $dbpost ['post_user_id'];
 				$post ['follower_id'] = $dbpost ['follower_id'];
 				$post ['first_name'] = $dbpost ['first_name'];
@@ -81,9 +81,11 @@ class index_controller extends base_controller {
 				// array_push($post, $mod_content);
 				$post ["content"] = $mod_content;
 				$posts [] = $post;
-				// echo $post["content"];
-				// echo "\r\n";
 			}
+			$client_files_body = Array (
+					"/js/confirm.js"
+			);
+			$this->template->client_files_body = Utils::load_client_files ( $client_files_body );
 			// Pass data to the View
 			$this->template->content->posts = $posts;
 		}

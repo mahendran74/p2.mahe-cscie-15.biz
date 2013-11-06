@@ -1,3 +1,4 @@
+
 <div class="wrapper cf">
    <!-- page-content -->
    <div class="page-content">
@@ -8,7 +9,7 @@
          <form id="contactForm" action="/posts/p_add" method="POST">
             <fieldset>
                <p>
-                  <textarea  name="content"  id="content" rows="1" cols="25" class="form-poshytip" placeholder="Type in your post. User # to denote keywords, like #great." title="Type in your post. User # to denote keywords, like #great." maxlength="255"></textarea>
+                  <textarea  name="content" required  id="content" rows="1" cols="25" class="form-poshytip" placeholder="Type in your post. User # to denote keywords, like #great." title="Type in your post. User # to denote keywords, like #great." maxlength="255"></textarea>
                </p>
                <p><input type="submit" value="Post" id="submit" /> </p>
             </fieldset>
@@ -16,6 +17,9 @@
       </div>
       <br/>
       <br/>
+     <div id="dialog-confirm" title="Delete record" style="display: none">
+        <p>Are you sure?</p>
+    </div>
       <div id="posts-list" class="cf">
          <?php foreach($posts as $post): ?>
          <!-- posts list -->
@@ -30,9 +34,13 @@
                </p>
             </div>
             <div class="meta">
-               <span class="tags">    <time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
-               <?=Time::display($post['created'])?>
+               <span class="tags">    
+               <time datetime="<?=Time::display($post['modified'],'Y-m-d G:i')?>">
+               <?=Time::display($post['modified'])?>
                </time></span>
+
+               <div class="edit"><a href="/posts/edit/<?=$post['post_id']?>" title="Edit post"><img src="/img/edit.png" alt="Edit"/></a></div>
+               <div class="del"><a class="confirm" href="/posts/delete/<?=$post['post_id']?>"  title="Delete post"><img src="/img/delete.png" alt="Delete"/></a></div>
             </div>
             <i class="tape"></i>
          </article>

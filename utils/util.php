@@ -4,13 +4,19 @@
 		return (!isset($string) || trim($string)==='');
 	}
 	
-	function email_not_used($email, $user_id) {
+	function email_not_used($email, $user_id = NULL) {
 		// Build the query to get all the users
+		if (empty($user_id))
+		{
+			$q = "SELECT *
+                    FROM users
+    			   WHERE UPPER(email) = UPPER('".$email."')";
+		} else {
 		$q = "SELECT *
                     FROM users
     			   WHERE UPPER(email) = UPPER('".$email."') AND
     			   		 user_id != ".$user_id;
-			
+		}
 		// Execute the query to get all the email.
 		// Store the result array in the variable $users
 		$users = DB::instance ( DB_NAME )->select_rows ( $q );
@@ -29,5 +35,16 @@
                  AND password = '" . $password . "'";
 		$token = DB::instance ( DB_NAME )->select_field ( $q );
 		return $token;
+	}
+	
+	function get_keywords($content, $post_id) {
+		preg_match_all('/#([\p{L}\p{Mn}]+)/u',$_POST['content'], $content);
+		foreach ($content[1] as $keyword) {
+			$data = Array("keyword" => $keyword, "post_id" => $post_id);
+			$q="SELECT * FROM posts_keywords WHERE keyword = '".$keyword."' AND post_id = ".$post_id;
+			$keyword_row = DB::instance ( DB_NAME )->select_rows ( $q );
+			if (empty($keyword_row))
+				DB::instance(DB_NAME)->insert('posts_keywords', $data);
+		}
 	}
 ?>
